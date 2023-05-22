@@ -70,7 +70,14 @@ async function run() {
     // services
     app.get('/services', async(req, res) => {
       const sort = req.query.sort;
-      const query = {};
+      const search = req.query.search;
+      console.log(search)
+      const query = {
+        title: {
+          $regex: search,
+          $options: 'i' // 'i' option for case-insensitive search
+        }
+      };
       const options = {
 
         sort: { "price": sort === 'asc' ? -1 : 1 }
